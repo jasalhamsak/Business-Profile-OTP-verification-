@@ -100,9 +100,10 @@ class Homescreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             BlocProvider(
-              create: (context) => HomeScreenCubit()..switchScreen(1),
+              create: (context) => HomeScreenCubit(),
               child: BlocBuilder<HomeScreenCubit, HomeScreenState>(
                 builder: (context, state) {
+                 final cubit =context.read<HomeScreenCubit>();
                   return Column(
                     children: [
                       Row(
@@ -114,7 +115,7 @@ class Homescreen extends StatelessWidget {
                               context.read<HomeScreenCubit>().switchScreen(1);
                             },
                             isSelected: state is HomeScreenLoaded &&
-                                state.selectedScreen == 1,
+                                state.selectedScreen == 1 || cubit.selectedIndex ==1
                           ),
                           ProfileButtons(
                             text: "Company",
@@ -138,11 +139,12 @@ class Homescreen extends StatelessWidget {
 
                       // Category Heading
 
-                          if(state is HomeScreenLoaded)...[
-                      if(state.selectedScreen == 1)PersonalDetailsIndex(),
-                      if(state.selectedScreen == 2)CompanyIndex(),
-                      if(state.selectedScreen == 3)SecurityIndex(),
-                          ]
+
+                      if(cubit.selectedIndex == 1)PersonalDetailsIndex(),
+                      if(cubit.selectedIndex == 2)CompanyIndex(),
+                      if(cubit.selectedIndex == 3)SecurityIndex(),
+
+
 
                     ],
                   );
