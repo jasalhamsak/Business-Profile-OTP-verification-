@@ -9,8 +9,7 @@ import '../cubit/home_screen_cubit.dart';
 import 'Resources.dart';
 
 class PersonalDetailsIndex extends StatelessWidget {
-   PersonalDetailsIndex({super.key});
-
+  PersonalDetailsIndex({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +18,11 @@ class PersonalDetailsIndex extends StatelessWidget {
         final cubit = context.read<HomeScreenCubit>();
         final bool isReadOnly = !cubit.isEditable;
         File? imageFile;
-        if(state is HomeScreenImagePicked){
-          imageFile =state.image;
+        if (state is HomeScreenImagePicked) {
+          imageFile = state.image;
         }
         return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Selected Categories",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const Icon(Icons.keyboard_arrow_right),
-                ],
-              ),
-            ),
             Column(
               children: [
                 Row(
@@ -72,93 +55,74 @@ class PersonalDetailsIndex extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        if(cubit.isEditable)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0,bottom: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CircleAvatar(
-                                radius: 50,
-                                backgroundImage:imageFile != null
-                                    ? FileImage(imageFile)
-                                    : NetworkImage(cubit.profileUrl),
-                              ),
-                              Column(
-                                children: [
-                                  ElevatedButton.icon(
-                                    onPressed: () {
-                                      cubit.pickImage(ImageSource.camera);
-                                    },
-                                    icon: Icon(Icons.camera_alt),
-                                    label: Text("Take a Photo",style: TextStyle(fontSize: 12),),
-                                  ),
-                                  SizedBox(height: 8,),
-                                  ElevatedButton.icon(
-                                    onPressed: () {
-                                      cubit.pickImage(ImageSource.gallery);
-                                    },
-                                    icon: Icon(Icons.photo_library_outlined),
-                                    label: Text("Choose Photo",style: TextStyle(fontSize: 12)),
-                                  ),
-                                ],
-                              ),
-                            ],
+                        if (cubit.isEditable)
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 8.0, bottom: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: imageFile != null
+                                      ? FileImage(imageFile)
+                                      : NetworkImage(cubit.profileUrl),
+                                ),
+                                Column(
+                                  children: [
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        cubit.pickImage(ImageSource.camera);
+                                      },
+                                      icon: Icon(Icons.camera_alt),
+                                      label: Text(
+                                        "Take a Photo",
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        cubit.pickImage(ImageSource.gallery);
+                                      },
+                                      icon: Icon(Icons.photo_library_outlined),
+                                      label: Text("Choose Photo",
+                                          style: TextStyle(fontSize: 12)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Text(
-                          "Company Name",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        CostmTextFormField(
+                        DetailRow(
+                          label: "Company Name",
                           controller: cubit.companyNameController,
                           isReadOnly: isReadOnly,
                         ),
-                        Text("Whatsapp Number",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
+                        DetailRow(
+                          label: "Whatsapp Number",
                           controller: cubit.whatsappNumberController,
                           isReadOnly: isReadOnly,
                         ),
-                        Text("Address",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
+                        DetailRow(
+                          label: "Address",
                           controller: cubit.addressController,
                           isReadOnly: isReadOnly,
                         ),
-                        Text("Place",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
+                        DetailRow(
+                          label: "Place",
                           controller: cubit.placeController,
                           isReadOnly: isReadOnly,
                         ),
-                        Text("District",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
+                        DetailRow(
+                          label: "District",
                           controller: cubit.districtController,
                           isReadOnly: isReadOnly,
                         ),
-                        Text("State",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
+                        DetailRow(
+                          label: "State",
                           controller: cubit.personStateController,
                           isReadOnly: isReadOnly,
                         ),
@@ -178,7 +142,6 @@ class PersonalDetailsIndex extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           cubit.cancelEdit();
-
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -237,22 +200,6 @@ class CompanyIndex extends StatelessWidget {
 
         return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Selected Categories",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const Icon(Icons.keyboard_arrow_right),
-                ],
-              ),
-            ),
             Column(
               children: [
                 Row(
@@ -285,62 +232,31 @@ class CompanyIndex extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          "Room/Floor/Building Number",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        CostmTextFormField(
+                        DetailRow(
+                          label: 'Room/Floor/Building Number',
                           controller: cubit.roomFloorBuildingNumberController,
                           isReadOnly: isReadOnly,
                         ),
-                        Text("Location/Street",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
-                          controller: cubit.locationController,
-                          isReadOnly: isReadOnly,
-                        ),
-                        Text("Landmark",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
-                          controller: cubit.landmarkController,
-                          isReadOnly: isReadOnly,
-                        ),
-                        Text("PIN Code",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
-                          controller: cubit.pINCodeController,
-                          isReadOnly: isReadOnly,
-                        ),
-                        Text("City",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
-                          controller: cubit.cityController,
-                          isReadOnly: isReadOnly,
-                        ),
-                        Text("State",
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            )),
-                        CostmTextFormField(
-                          controller: cubit.companyStateController,
-                          isReadOnly: isReadOnly,
-                        ),
+                        DetailRow(
+                            label: "Location/Street",
+                            controller: cubit.locationController,
+                            isReadOnly: isReadOnly),
+                        DetailRow(
+                            label: "Landmark",
+                            controller: cubit.landmarkController,
+                            isReadOnly: isReadOnly),
+                        DetailRow(
+                            label: "PIN Code",
+                            controller: cubit.pINCodeController,
+                            isReadOnly: isReadOnly),
+                        DetailRow(
+                            label: "City",
+                            controller: cubit.cityController,
+                            isReadOnly: isReadOnly),
+                        DetailRow(
+                            label: "State",
+                            controller: cubit.companyStateController,
+                            isReadOnly: isReadOnly)
                       ],
                     ),
                   ),
@@ -351,50 +267,11 @@ class CompanyIndex extends StatelessWidget {
               height: 10,
             ),
             state is TextEditable
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          cubit.cancelEdit();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, top: 5, bottom: 5),
-                            child: Text(
-                              "Cancel",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          cubit.putCompanyDetails(context);
-                          // cubit.saveEdit();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 18.0, right: 18.0, top: 5, bottom: 5),
-                            child: Text(
-                              "Save",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
+                ? SaveAndCancel(cancelOnTap: () {
+                    cubit.cancelEdit();
+                  }, saveOnTap: () {
+                    cubit.putCompanyDetails(context);
+                  })
                 : SizedBox()
           ],
         );
@@ -414,22 +291,6 @@ class SecurityIndex extends StatelessWidget {
 
         return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Selected Categories",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const Icon(Icons.keyboard_arrow_right),
-                ],
-              ),
-            ),
             Column(
               children: [
                 Row(
@@ -462,20 +323,14 @@ class SecurityIndex extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          "GSTIN Number",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        CostmTextFormField(
+                        DetailRow(
+                          label: "GSTIN Number",
                           controller: cubit.gSTNumberController,
                           isReadOnly:
                               state is sacialEditState && state.item == 1
                                   ? false
                                   : true,
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -484,62 +339,25 @@ class SecurityIndex extends StatelessWidget {
                   height: 10,
                 ),
                 state is sacialEditState && state.item == 1
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              cubit.cancelEdit();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15.0, right: 15.0, top: 5, bottom: 5),
-                                child: Text(
-                                  "Cancel",
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              cubit.saveEdit();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 18.0, right: 18.0, top: 5, bottom: 5),
-                                child: Text(
-                                  "Save",
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      )
+                    ? SaveAndCancel(cancelOnTap: () {
+                        cubit.cancelEdit();
+                      }, saveOnTap: () {
+                        cubit.saveEdit();
+                      })
                     : SizedBox(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
                       "Bank Details",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     IconButton(
                         onPressed: () {
+                          cubit.cancelEdit();
                           cubit.spacialEdit(2);
                         },
                         icon: state is TextEditable
@@ -596,49 +414,11 @@ class SecurityIndex extends StatelessWidget {
               height: 10,
             ),
             state is sacialEditState && state.item == 2
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          cubit.cancelEdit();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, top: 5, bottom: 5),
-                            child: Text(
-                              "Cancel",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          cubit.saveEdit();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 18.0, right: 18.0, top: 5, bottom: 5),
-                            child: Text(
-                              "Save",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
+                ? SaveAndCancel(cancelOnTap: () {
+                    cubit.cancelEdit();
+                  }, saveOnTap: () {
+                    cubit.saveEdit();
+                  })
                 : SizedBox(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

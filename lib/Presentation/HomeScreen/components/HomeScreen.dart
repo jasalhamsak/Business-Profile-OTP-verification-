@@ -151,10 +151,24 @@ class Homescreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Selected Categories",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const Icon(Icons.keyboard_arrow_right),
+                          ],
+                        ),
+                      ),
 
                       // Category Heading
-
-
                       if(cubit.selectedIndex == 1)PersonalDetailsIndex(),
                       if(cubit.selectedIndex == 2)CompanyIndex(),
                       if(cubit.selectedIndex == 3)SecurityIndex(),
