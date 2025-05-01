@@ -54,20 +54,18 @@ class Heading2 extends StatelessWidget {
 }
 
 
-
-
 // A reusable widget for each detail
 class DetailRow extends StatelessWidget {
   final String label;
   final String value;
+  final bool isReadOnly;
   final TextEditingController controller;
-  final bool isReadable;
-
    DetailRow({
     super.key,
     required this.label,
     required this.value,
-     required this.controller, required this.isReadable,
+     required this.controller,
+    required this.isReadOnly,
   });
 
   @override
@@ -85,22 +83,20 @@ class DetailRow extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          // Text(
-          //   value,
-          //   style: TextStyle(
-          //     fontSize: 13,
-          //     color: Colors.grey[700],
-          //   ),
-          // ),
-          isReadable?
           TextFormField(
+            readOnly: isReadOnly,
             controller: controller,
-            readOnly: isReadable,
-            decoration: InputDecoration(
-              border: InputBorder.none
+            style: TextStyle(
+                color: Color(0xff828282),
+                fontWeight: FontWeight.w500,
+                fontSize: 14
             ),
-          ):
-              Text(controller.text,)
+            decoration: InputDecoration(
+              border:isReadOnly? InputBorder.none:
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),),
+            ),
+          ),
         ],
       ),
     );

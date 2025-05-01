@@ -7,8 +7,6 @@ import '../cubit/logincubit_cubit.dart';
 class Loginscreen extends StatelessWidget {
    Loginscreen({super.key});
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +19,7 @@ class Loginscreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: BlocBuilder<LogincubitCubit, LogincubitState>(
             builder: (context, state) {
+              final cubit = context.read<LogincubitCubit>();
               return Column(
                         children: [
                           Padding(
@@ -61,7 +60,7 @@ class Loginscreen extends StatelessWidget {
                                 Column(
                                   children: [
                                       TextFormField(
-                                        controller: _emailController,
+                                        controller: cubit.emailController,
                                         decoration: InputDecoration(
                                           border: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(15)),
@@ -78,7 +77,7 @@ class Loginscreen extends StatelessWidget {
                                     SizedBox(height: 15,),
             
                                     TextFormField(
-                                      controller: _passController,
+                                      controller: cubit.passwordController,
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(15)),
@@ -104,7 +103,7 @@ class Loginscreen extends StatelessWidget {
                                 ),
                                 InkWell(
                                   onTap: (){
-                                    if(_emailController.text.isEmpty && _passController.text.isEmpty){
+                                    if(cubit.emailController.text.isEmpty && cubit.passwordController.text.isEmpty){
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
                                           behavior: SnackBarBehavior.floating,
@@ -113,7 +112,7 @@ class Loginscreen extends StatelessWidget {
                                             content: Text("Username and Password cant be empty!"))
                                       );
                                     }else{
-
+                                      context.read<LogincubitCubit>().checkLoginStatus();
                                       final loginCubit = context.read<LogincubitCubit>();
                                       showDialog(
                                         context: context,
@@ -121,7 +120,7 @@ class Loginscreen extends StatelessWidget {
                                         builder: (context) => Dialog(
                                           backgroundColor: Colors.transparent,
                                           child: BlocProvider.value(
-                                            value: loginCubit, // 👈 provide the existing cubit to the OtpPage
+                                            value: loginCubit,
                                             child: SizedBox(
                                               width: 300,
                                               height: 400,
@@ -145,7 +144,7 @@ class Loginscreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10)
                                     ),
                                     child: Center(
-                                        child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 18),)),
+                                        child: state is LoginStatusLoading?CircularProgressIndicator():Text("Login",style: TextStyle(color: Colors.white,fontSize: 18),)),
                                   ),
                                 ),
                                 SizedBox(height: 50,),

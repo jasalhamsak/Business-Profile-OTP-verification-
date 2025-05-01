@@ -1,10 +1,12 @@
-import 'package:businessprofile_otp_verification/Presentation/HomeScreen/Presentation/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
+import 'Presentation/HomeScreen/components/HomeScreen.dart';
 import 'Presentation/LoginScreen/Presentation/LoginScreen.dart';
 import 'Presentation/LoginScreen/Presentation/OTPpage.dart';
+import 'Presentation/SplashScreen/Splash.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home: Loginscreen(
+      home: Splash(
 
       ),
     );
