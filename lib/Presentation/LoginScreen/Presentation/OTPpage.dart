@@ -163,6 +163,7 @@ class OtpPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: 10,)
                 ],
               ),
             ),

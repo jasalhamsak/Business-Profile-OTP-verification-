@@ -8,7 +8,10 @@ final class LogincubitInitial extends LogincubitState {}
 final class LoginStatusLoading extends LogincubitState {}
 final class LoginStatusLoaded extends LogincubitState {
 }
-final class LoginStatusError extends LogincubitState {}
+final class LoginStatusError extends LogincubitState {
+  final String problem;
+  LoginStatusError({required this.problem});
+}
 
 
 

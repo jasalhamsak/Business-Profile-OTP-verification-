@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileButtons extends StatelessWidget {
   ProfileButtons({
@@ -17,18 +18,23 @@ class ProfileButtons extends StatelessWidget {
     return InkWell(
       onTap: ontap,
       child: Container(
+        height: 45,
+        alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: isSelected ? Color(0xff47BA82) : Color(0xffEEEEEE)),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 15.0, right: 15, top: 8, bottom: 8),
-          child: Text(
-            text,
-            style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.w500),
+            color: isSelected ? Color(0xff47BA82) : Color(0xFFEEEEEE)),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Padding(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              text,
+              style: TextStyle(
+                  color: isSelected ? Colors.white : Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
         ),
       ),
@@ -83,8 +89,8 @@ class DetailRow extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 13,
+            style: TextStyle(
+              fontSize: 15,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -113,12 +119,15 @@ class CostmTextFormField extends StatelessWidget {
         style: TextStyle(
             color: Color(0xff828282),
             fontWeight: FontWeight.w500,
-            fontSize: 14),
+            fontSize: 16),
         decoration: InputDecoration(
+          filled: true,
+          fillColor: isReadOnly?Colors.transparent:Colors.white,
           border: isReadOnly
               ? InputBorder.none
               : OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide.none
                 ),
         ),
       ),
@@ -144,14 +153,22 @@ class SaveAndCancel extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.red,
-                borderRadius: BorderRadius.circular(15)),
+                borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x33000000),
+                  blurRadius: 8,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
             child: Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 5, bottom: 5),
+                  left: 20.0, right: 20.0, top: 10, bottom: 10),
               child: Text(
                 "Cancel",
                 style:
-                TextStyle(fontSize: 20, color: Colors.white),
+                TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -161,14 +178,23 @@ class SaveAndCancel extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.green,
-                borderRadius: BorderRadius.circular(15)),
+                borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x33000000),
+                  blurRadius: 8,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+
             child: Padding(
               padding: const EdgeInsets.only(
-                  left: 18.0, right: 18.0, top: 5, bottom: 5),
+                  left: 20.0, right: 20.0, top: 10, bottom: 10),
               child: Text(
                 "Save",
                 style:
-                TextStyle(fontSize: 20, color: Colors.white),
+                TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.w600),
               ),
             ),
           ),

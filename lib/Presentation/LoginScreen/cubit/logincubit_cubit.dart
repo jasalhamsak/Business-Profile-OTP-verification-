@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/scheduler.dart';
@@ -22,18 +24,20 @@ class LogincubitCubit extends Cubit<LogincubitState> {
     emit(LoginStatusLoading());
     final url = "https://callsouq-api.foxa.in/api/auth/login/";
     final response = await http.post(Uri.parse(url),
-        body: {"identifier": "jasalhamsa2@gmail.com",
-          "password": "12345678"}
+        // body: {"identifier": "jasalhamsa2@gmail.com",
+        //   "password": "12345678"}
+        body: {"identifier": emailController.text.trim(),
+          "password": passwordController.text.trim()}
     );
 
     if (response.statusCode == 200) {
-      emit(LoginStatusLoading());
       final data =otpModelFromJson(response.body);
        tempToken = data.data.token;
       emit(LoginStatusLoaded());
     } else {
-      print("failed");
-      emit(LoginStatusError());
+      final data =jsonDecode(response.body);
+      final problem =data["message"];
+      emit(LoginStatusError(problem: problem));
     }
   }
 
@@ -69,21 +73,6 @@ class LogincubitCubit extends Cubit<LogincubitState> {
       emit(MainTokenError());
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

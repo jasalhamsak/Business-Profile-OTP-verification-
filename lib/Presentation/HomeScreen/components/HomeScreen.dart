@@ -31,16 +31,35 @@ class Homescreen extends StatelessWidget {
           ],
         ),
         drawer: Drawer(
-          child: ListView(
-            children: [
-              ListTile(
-                title: Text("logout"),
-                onTap: (){
-                  remPrefs();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => Loginscreen(),));
-                },
-              )
-            ],
+          child: Builder(
+            builder: (context) {
+              final cubit =context.read<HomeScreenCubit>();
+              return ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  UserAccountsDrawerHeader(
+                    decoration: BoxDecoration(color: Colors.green),
+                    accountName: Text(cubit.originalName, style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                    accountEmail: Text(cubit.originalEmail),
+                    currentAccountPicture: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(cubit.profileUrl), // Replace with actual image URL
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.exit_to_app),
+                    title: Text("logout"),
+                    onTap: (){
+                      remPrefs();
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => Loginscreen(),));
+                    },
+                  ),
+
+                ],
+              );
+            }
           ),
         ),
         body: SingleChildScrollView(
@@ -58,7 +77,7 @@ class Homescreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: Colors.green,
+                            color: Color(0xff47BA82),
                             width: 4,
                           ),
                         ),
@@ -124,32 +143,36 @@ class Homescreen extends StatelessWidget {
                   Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          ProfileButtons(
-                              text: "Personal Details",
-                              ontap: () {
-                                context.read<HomeScreenCubit>().switchScreen(1);
-                              },
-                              isSelected:
-                                  cubit.selectedIndex == 1
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: ProfileButtons(
+                              text: "Personal",
+                              ontap: () => cubit.switchScreen(1),
+                              isSelected: cubit.selectedIndex == 1,
+                            ),
                           ),
-                          ProfileButtons(
-                            text: "Company",
-                            ontap: () {
-                              context.read<HomeScreenCubit>().switchScreen(2);
-                            },
-                            isSelected: cubit.selectedIndex == 2,
+                          SizedBox(width: 8),
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: ProfileButtons(
+                              text: "Company",
+                              ontap: () => cubit.switchScreen(2),
+                              isSelected: cubit.selectedIndex == 2,
+                            ),
                           ),
-                          ProfileButtons(
-                            text: "Security",
-                            ontap: () {
-                              context.read<HomeScreenCubit>().switchScreen(3);
-                            },
-                            isSelected: cubit.selectedIndex == 3,
+                          SizedBox(width: 8),
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: ProfileButtons(
+                              text: "Security",
+                              ontap: () => cubit.switchScreen(3),
+                              isSelected: cubit.selectedIndex == 3,
+                            ),
                           ),
                         ],
                       ),
+
                       const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 8),

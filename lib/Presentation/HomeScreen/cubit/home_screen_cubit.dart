@@ -155,19 +155,44 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
           .add(await http.MultipartFile.fromPath('upload_photo', image!.path));
     }
 
-    request.fields["supplier_name"] = originalName;
-    request.fields["company_name"] = companyNameController.text;
-    request.fields["address"] = addressController.text;
-    request.fields["place"] = placeController.text;
-    request.fields["district"] = districtController.text;
-    request.fields["state"] = personStateController.text;
-    request.fields["supplier_type"] = supplierType;
-    request.fields["whatsapp_number"] = whatsappNumberController.text;
+    if (originalName.isNotEmpty) {
+      request.fields["supplier_name"] = originalName;
+    }
+
+    if (companyNameController.text.isNotEmpty) {
+      request.fields["company_name"] = companyNameController.text;
+    }
+
+    if (addressController.text.isNotEmpty) {
+      request.fields["address"] = addressController.text;
+    }
+
+    if (placeController.text.isNotEmpty) {
+      request.fields["place"] = placeController.text;
+    }
+
+    if (districtController.text.isNotEmpty) {
+      request.fields["district"] = districtController.text;
+    }
+
+    if (personStateController.text.isNotEmpty) {
+      request.fields["state"] = personStateController.text;
+    }
+
+    if (supplierType.isNotEmpty) {
+      request.fields["supplier_type"] = supplierType;
+    }
+
+    if (whatsappNumberController.text.isNotEmpty) {
+      request.fields["whatsapp_number"] = whatsappNumberController.text;
+    }
+
 
     var response = await request.send();
 
     if (response.statusCode == 200) {
       await getDetails();
+      image = null;
       print("success");
       emit(PutDetailsSuccess());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../cubit/home_screen_cubit.dart';
 import 'Resources.dart';
 
@@ -77,7 +76,7 @@ class PersonalDetailsIndex extends StatelessWidget {
                                       icon: Icon(Icons.camera_alt),
                                       label: Text(
                                         "Take a Photo",
-                                        style: TextStyle(fontSize: 12),
+                                        style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700),
                                       ),
                                     ),
                                     SizedBox(
@@ -89,7 +88,7 @@ class PersonalDetailsIndex extends StatelessWidget {
                                       },
                                       icon: Icon(Icons.photo_library_outlined),
                                       label: Text("Choose Photo",
-                                          style: TextStyle(fontSize: 12)),
+                                          style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700)),
                                     ),
                                   ],
                                 ),
@@ -136,50 +135,57 @@ class PersonalDetailsIndex extends StatelessWidget {
               height: 10,
             ),
             (cubit.isEditable)
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          cubit.cancelEdit();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, top: 5, bottom: 5),
-                            child: Text(
-                              "Cancel",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          cubit.saveEdit();
-                          cubit.putPersonalDetails(context);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 18.0, right: 18.0, top: 5, bottom: 5),
-                            child: Text(
-                              "Save",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
+                ?
+                // ? Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //     children: [
+                //       InkWell(
+                //         onTap: () {
+                //           cubit.cancelEdit();
+                //         },
+                //         child: Container(
+                //           decoration: BoxDecoration(
+                //               color: Colors.red,
+                //               borderRadius: BorderRadius.circular(15)),
+                //           child: Padding(
+                //             padding: const EdgeInsets.only(
+                //                 left: 15.0, right: 15.0, top: 5, bottom: 5),
+                //             child: Text(
+                //               "Cancel",
+                //               style:
+                //                   TextStyle(fontSize: 20, color: Colors.white),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //       InkWell(
+                //         onTap: () {
+                //           cubit.saveEdit();
+                //           cubit.putPersonalDetails(context);
+                //         },
+                //         child: Container(
+                //           decoration: BoxDecoration(
+                //               color: Colors.green,
+                //               borderRadius: BorderRadius.circular(15)),
+                //           child: Padding(
+                //             padding: const EdgeInsets.only(
+                //                 left: 18.0, right: 18.0, top: 5, bottom: 5),
+                //             child: Text(
+                //               "Save",
+                //               style:
+                //                   TextStyle(fontSize: 20, color: Colors.white),
+                //             ),
+                //           ),
+                //         ),
+                //       )
+                //     ],
+                //   )
+                SaveAndCancel(cancelOnTap: () {
+                    cubit.cancelEdit();
+                  }, saveOnTap: () {
+                    cubit.saveEdit();
+                    cubit.putPersonalDetails(context);
+                  })
                 : SizedBox()
           ],
         );
